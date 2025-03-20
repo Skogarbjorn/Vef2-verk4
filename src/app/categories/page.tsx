@@ -1,7 +1,8 @@
 "use client";
 
 import { fetchCategories } from "../../lib/api.ts";
-import { Layout, List } from "../page.tsx";
+import { Layout } from "../layoutProp.tsx";
+import { List } from "../list.tsx";
 import { useEffect, useState } from "react";
 import styles from "../page.module.css";
 import Link from "next/link";
@@ -64,7 +65,7 @@ export default function CategoriesPage() {
       <h1>Edit Categories</h1>
       <List
         items={categories}
-        renderItem={(category) => (
+        renderItem={(category: { id: number; title: string; slug: string }) => (
           <>
             <p className={styles.text}>{category.title}</p>
             <Link

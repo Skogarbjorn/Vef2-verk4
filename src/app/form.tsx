@@ -10,7 +10,7 @@ type Answer = {
   isCorrect: boolean;
 };
 
-type FormField = {
+export type FormField = {
   name: string;
   label: string;
   type: FieldType;
@@ -74,17 +74,19 @@ export default function Form({ fields, onSubmit }: FormProps) {
   function handleChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) {
-    const { name, value, type, checked } = event.target;
-    if (type === "checkbox") {
+    const { name, value, type } = event.target;
+    if (type === "checkbox" && event.target instanceof HTMLInputElement) {
+      const checked = event.target.checked;
       setFormData((prev) => ({ ...prev, [name]: checked ? "true" : "false" }));
     } else {
       setFormData((prev) => ({ ...prev, [name]: value }));
     }
 
     if (name === "answerCount") {
-      const clampedValue = value > 4 ? 4 : value < 2 ? 2 : value;
+      const clampedValue =
+        Number(value) > 4 ? 4 : Number(value) < 2 ? 2 : Number(value);
       setAnswerCount(clampedValue);
-      formData[name] = 4;
+      formData[name] = "4";
     }
   }
 
@@ -141,7 +143,7 @@ export default function Form({ fields, onSubmit }: FormProps) {
           {field.type === "radio" && field.options && (
             <div className={styles.form_radio}>
               {field.options.map((option) => (
-                <label key={option} className={styles.form_label}>
+                <label key={option.key} className={styles.form_label}>
                   <input
                     type="radio"
                     name={field.name}

@@ -1,9 +1,16 @@
 import { useState } from "react";
 import styles from "./page.module.css";
-import { List } from "./page.tsx";
+import { List } from "./list.tsx";
 
 type QuizProps = {
-  questions: T[];
+  questions: {
+    id: number;
+    question: string;
+    answers: {
+      answer: string;
+      isCorrect: boolean;
+    }[];
+  }[];
   handleSubmit: (selectedAnswers: Record<string, boolean>) => void;
 };
 

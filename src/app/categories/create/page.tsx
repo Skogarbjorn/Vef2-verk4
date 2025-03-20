@@ -1,8 +1,8 @@
 "use client";
 
-import Form from "../../form.tsx";
+import Form, { FormField } from "../../form.tsx";
 import { useState } from "react";
-import { Layout } from "../../page.tsx";
+import { Layout } from "../../layoutProp.tsx";
 import styles from "../../page.module.css";
 
 export default function CreateCategoryPage() {
@@ -10,7 +10,13 @@ export default function CreateCategoryPage() {
   const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const fields = [{ name: "name", label: "Category Name: ", type: "text" }];
+  const fields: FormField[] = [
+    {
+      name: "name",
+      label: "Category Name: ",
+      type: "text",
+    },
+  ];
 
   async function handleFormSubmit(values: Record<string, string>) {
     try {

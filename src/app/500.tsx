@@ -1,4 +1,4 @@
-import { Layout } from "./page.tsx";
+import { Layout } from "./layoutProp.tsx";
 import Link from "next/link";
 
 export default function InternalError({ error }: { error: string }) {

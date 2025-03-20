@@ -6,7 +6,8 @@ import {
   fetchQuestions,
   fetchQuestionsByCategory,
 } from "../../lib/api.ts";
-import { Layout, List } from "../page.tsx";
+import { Layout } from "../layoutProp.tsx";
+import { List } from "../list.tsx";
 import styles from "../page.module.css";
 import Link from "next/link";
 import InternalError from "../500.tsx";
@@ -40,7 +41,7 @@ export default function QuestionsPage() {
         if (result instanceof Error) {
           setError(result.message);
         } else {
-          setQuestions(questions);
+          setQuestions(result.questions);
         }
       } catch (err) {
         setError((err as Error).message);
@@ -90,7 +91,11 @@ export default function QuestionsPage() {
       </select>
       <List
         items={questions}
-        renderItem={(question) => (
+        renderItem={(question: {
+          id: number;
+          question: string;
+          categoryId: number;
+        }) => (
           <>
             <p className={styles.text}>{question.question}</p>
             <Link

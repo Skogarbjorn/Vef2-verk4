@@ -1,16 +1,13 @@
 "use client";
 
-import { Usable, use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { fetchCategories, fetchQuestion } from "../../../../lib/api.ts";
-import { Layout } from "../../../page.tsx";
-import Form from "../../../form.tsx";
+import { Layout } from "../../../layoutProp.tsx";
+import Form, { FormField } from "../../../form.tsx";
 import styles from "../../../page.module.css";
+import { useParams } from "next/navigation";
 
-export default function EditQuestionPage({
-  params,
-}: {
-  params: Usable<{ id: number }>;
-}) {
+export default function EditQuestionPage() {
   const [question, setQuestion] = useState<{
     id: number;
     question: string;
@@ -24,7 +21,8 @@ export default function EditQuestionPage({
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
 
-  const id = use(params).id;
+  const params = useParams<{ id: string }>;
+  const id = Number(params().id);
 
   useEffect(() => {
     async function fetchData() {
@@ -43,7 +41,7 @@ export default function EditQuestionPage({
     fetchData();
   }, [id]);
 
-  const fields = question
+  const fields: FormField[] = question
     ? [
         {
           name: "question",
@@ -56,8 +54,8 @@ export default function EditQuestionPage({
           label: "Which Category? ",
           type: "select",
           options: categories.map((item) => ({
+            key: String(item.id),
             value: item.title,
-            key: item.id,
           })),
           value: question?.categoryId,
         },

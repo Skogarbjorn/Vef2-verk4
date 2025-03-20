@@ -1,9 +1,9 @@
 "use client";
 
 import { fetchCategories } from "../../../lib/api.ts";
-import Form from "../../form.tsx";
+import Form, { FormField } from "../../form.tsx";
 import { useEffect, useState } from "react";
-import { Layout } from "../../page.tsx";
+import { Layout } from "../../layoutProp.tsx";
 import styles from "../../page.module.css";
 import UserError from "../../400.tsx";
 
@@ -31,15 +31,15 @@ export default function CreateQuestionPage() {
     loadCategories();
   }, []);
 
-  const fields = [
+  const fields: FormField[] = [
     { name: "question", label: "Question: ", type: "text" },
     {
       name: "categoryId",
       label: "Which Category? ",
       type: "select",
       options: categories.map((item) => ({
+        key: String(item.id),
         value: item.title,
-        key: item.id,
       })),
     },
     {

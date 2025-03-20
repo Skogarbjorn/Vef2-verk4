@@ -1,15 +1,12 @@
 "use client";
 
-import { Usable, use, useEffect, useState } from "react";
-import { Layout } from "../../page.tsx";
+import { useEffect, useState } from "react";
+import { Layout } from "../../layoutProp.tsx";
 import NotFound from "../../not-found.tsx";
 import { Quiz } from "../../quiz.tsx";
+import { useParams } from "next/navigation";
 
-export default function CategoryPage({
-  params,
-}: {
-  params: Usable<{ slug: string }>;
-}) {
+export default function CategoryPage() {
   const [questions, setQuestions] = useState<
     {
       id: number;
@@ -21,7 +18,8 @@ export default function CategoryPage({
   const [checkedAnswers, setCheckedAnswers] = useState<
     Record<string, "correct" | "incorrect" | "default">
   >({});
-  const { slug } = use(params);
+  const params = useParams<{ slug: string }>;
+  const { slug } = params();
 
   useEffect(() => {
     async function fetchCategory() {

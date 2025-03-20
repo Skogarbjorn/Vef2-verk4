@@ -1,16 +1,13 @@
 "use client";
 
-import { Usable, use, useEffect, useState } from "react";
-import { Layout } from "../../../page.tsx";
+import { useEffect, useState } from "react";
+import { Layout } from "../../../layoutProp.tsx";
 import { fetchCategory } from "../../../../lib/api.ts";
-import Form from "../../../form.tsx";
+import Form, { FormField } from "../../../form.tsx";
 import styles from "../../../page.module.css";
+import { useParams } from "next/navigation";
 
-export default function EditPage({
-  params,
-}: {
-  params: Usable<{ slug: string }>;
-}) {
+export default function EditPage() {
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
   const [category, setCategory] = useState<{
@@ -19,7 +16,8 @@ export default function EditPage({
     id: number;
   } | null>(null);
   const [error, setError] = useState<string>("");
-  const { slug } = use(params);
+  const params = useParams<{ slug: string }>;
+  const { slug } = params();
 
   useEffect(() => {
     async function loadCategory() {
@@ -33,12 +31,12 @@ export default function EditPage({
     loadCategory();
   }, []);
 
-  const fields = [
+  const fields: FormField[] = [
     {
       name: "title",
       label: "Category title: ",
       type: "text",
-      value: category ? category.title : null,
+      value: category ? category.title : undefined,
     },
   ];
 
