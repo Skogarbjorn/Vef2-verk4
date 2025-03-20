@@ -90,7 +90,7 @@ export default function QuestionsPage() {
       </select>
       <List
         items={questions}
-        renderItem={(question, _) => (
+        renderItem={(question) => (
           <>
             <p className={styles.text}>{question.question}</p>
             <Link
