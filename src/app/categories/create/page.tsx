@@ -1,10 +1,9 @@
 "use client";
 
 import Form from "../../form.tsx";
-import { ReactNode, Usable, use, useEffect, useState } from "react";
+import { useState } from "react";
 import { Layout } from "../../page.tsx";
 import styles from "../../page.module.css";
-import UserError from "../../400.tsx";
 
 export default function CreateCategoryPage() {
   const [submitted, setSubmitted] = useState<boolean>(false);

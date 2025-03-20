@@ -1,13 +1,12 @@
 "use client";
 
 import { Usable, use, useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { Layout } from "../../../page.tsx";
 import { fetchCategory } from "../../../../lib/api.ts";
 import Form from "../../../form.tsx";
 import styles from "../../../page.module.css";
 
-export default function editPage({
+export default function EditPage({
   params,
 }: {
   params: Usable<{ slug: string }>;

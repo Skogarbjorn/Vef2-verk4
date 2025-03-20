@@ -1,17 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import styles from "./page.module.css";
 import { ReactNode, useEffect, useState } from "react";
 import Link from "next/link";
 import Layout from "@/components/Layout";
 import { fetchCategories } from "../lib/api.ts";
 import InternalError from "./500.tsx";
-
-const categories = [
-  { id: 1, name: "Math" },
-  { id: 2, name: "Science" },
-];
 
 type LayoutProps = {
   children: ReactNode;
@@ -54,7 +48,7 @@ export default function Home() {
       <p>Select category</p>
       <List
         items={categories}
-        renderItem={(category, _) => (
+        renderItem={(category) => (
           <Link href={`/categories/${category.slug}`} className={styles.link}>
             {category.title}
           </Link>

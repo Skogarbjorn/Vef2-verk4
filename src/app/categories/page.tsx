@@ -2,7 +2,7 @@
 
 import { fetchCategories } from "../../lib/api.ts";
 import { Layout, List } from "../page.tsx";
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../page.module.css";
 import Link from "next/link";
 import InternalError from "../500.tsx";

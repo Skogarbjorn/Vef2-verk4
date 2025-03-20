@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, Usable, use, useEffect, useState } from "react";
+import { Usable, use, useEffect, useState } from "react";
 import { fetchCategories, fetchQuestion } from "../../../../lib/api.ts";
 import { Layout } from "../../../page.tsx";
 import Form from "../../../form.tsx";
@@ -119,7 +119,10 @@ export default function EditQuestionPage({
       {submitted ? (
         <p className={styles.submit_message}>{message}</p>
       ) : (
-        <Form fields={fields} onSubmit={handleFormSubmit} />
+        <>
+          {error && <p>{error}</p>}
+          <Form fields={fields} onSubmit={handleFormSubmit} />
+        </>
       )}
     </Layout>
   );
